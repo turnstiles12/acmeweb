@@ -70,6 +70,7 @@ public class StatusController {
             
             String detailStream = details.stream().collect(Collectors.joining(", "));
             detailedStatus = new ServerStatus(counter.incrementAndGet(), detailStream);
+            
         }
         return detailedStatus;
     }
