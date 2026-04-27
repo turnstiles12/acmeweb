@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 /**
  * Controller for all web/REST requests about the status of servers
@@ -52,7 +53,9 @@ public class StatusController {
      * @param name    optional param identifying the requester
      * @param details optional param with a list of server status details being requested
      * @return a ServerStatus object containing the info to be returned to the requestor
-     *      * @apiNote TODO since Spring picks apart the object returned with Reflection and doesn't care what the return-object's type is, we can change the type of object we return if necessary
+     *      * @apiNote TODO since Spring picks apart the object returned with 
+     *         Reflection and doesn't care what the return-object's type is, 
+     *          we can change the type of object we return if necessary
      */
     @RequestMapping("/status/detailed")
     public ServerStatus getDetailedStatus(
@@ -64,11 +67,10 @@ public class StatusController {
         if (details != null) {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
-
-            //todo Should do something with all these details that were requested
-
-
+            
+            String detailStream = details.stream().collect(Collectors.joining(", "));
+            detailedStatus = new ServerStatus(counter.incrementAndGet(), detailStream);
         }
-        return detailedStatus; //todo shouldn't just return null
+        return detailedStatus;
     }
 }
