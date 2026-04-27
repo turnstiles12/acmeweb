@@ -67,10 +67,10 @@ public class StatusController {
         if (details != null) {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
-            
-            String detailStream = details.stream().collect(Collectors.joining(", "));
-            detailedStatus = new ServerStatus(counter.incrementAndGet(), detailStream);
-            
+
+            //todo Should do something with all these details that were requested
+
+
         }
         return detailedStatus;
     }
