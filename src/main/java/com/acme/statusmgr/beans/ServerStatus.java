@@ -37,7 +37,6 @@ public class ServerStatus implements ServerInfo {
      * @return a numeric id that increases during life of server for each request .
      */
     @Override
-    @Cacheable
     public long getId() {
         return id;
     }
@@ -48,7 +47,6 @@ public class ServerStatus implements ServerInfo {
      * @return some string
      */
     @Override
-    @Cacheable
     public String getContentHeader() {
         return contentHeader;
     }
@@ -60,7 +58,6 @@ public class ServerStatus implements ServerInfo {
      * @return A string describing status
      */
     @Override
-    @Cacheable
     public String getStatusDesc() {
         // Obtain current status of server
         return "Server is " + ServerManager.getCurrentServerStatus();
@@ -71,7 +68,6 @@ public class ServerStatus implements ServerInfo {
      * @return Integer representing the cost of request as number of pennies
      */
     @Override
-    @Cacheable
     public Integer getRequestCost() {
         return requestCost;
     }
