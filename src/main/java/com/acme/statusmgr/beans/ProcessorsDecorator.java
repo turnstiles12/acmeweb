@@ -7,7 +7,8 @@ public class ProcessorsDecorator extends ServerDecorator {
 
     @Override
     public String getStatusDesc() {
-        return decoratedServerInfo.getStatusDesc() + facade.getAvailableProcessors();
+        return decoratedServerInfo.getStatusDesc() + ", and there are "
+        + facade.getAvailableProcessors() + " processors available";
     }
     
 }

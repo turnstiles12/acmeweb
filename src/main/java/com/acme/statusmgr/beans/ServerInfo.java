@@ -5,6 +5,7 @@ package com.acme.statusmgr.beans;
  * 
  * Has decorators to add info about JRE version, Temp server location,
  * total JVM memory, free JVM memory, available processors
+ * Gives info about all varied types of system status 
  */
 public interface ServerInfo {
 

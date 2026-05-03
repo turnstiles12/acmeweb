@@ -8,7 +8,8 @@ public class JREDecorator extends ServerDecorator {
 
     @Override
     public String getStatusDesc() {
-        return decoratedServerInfo.getStatusDesc() + facade.getJreVersion();
+        return decoratedServerInfo.getStatusDesc() + ", and the JRE version is "
+        + facade.getJreVersion();
     }
     
 }

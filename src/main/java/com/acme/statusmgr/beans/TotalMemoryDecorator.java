@@ -6,7 +6,8 @@ public class TotalMemoryDecorator extends ServerDecorator {
     }
     @Override
     public String getStatusDesc() {
-        return decoratedServerInfo.getStatusDesc() + facade.getTotalJVMMemory();
+        return decoratedServerInfo.getStatusDesc() + ", and there is a total of "
+        + facade.getTotalJVMMemory() + "bytes of JVM memory";
     }
     
 }
