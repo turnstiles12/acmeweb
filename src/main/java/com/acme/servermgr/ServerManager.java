@@ -13,13 +13,6 @@ public class ServerManager {
      * @return a descriptive string about the servers status
      */
     static public String getCurrentServerStatus() {
-        // try {
-        //     ResponseEntity<String> response = restTemplate.getForEntity("http://your-server/health", String.class);
-        //     return response.getStatusCode().is2xxSuccessful() ? "up" : "down";
-        // } 
-        // catch (Exception e) {
-        //     return "down";
-        // }
         return "up";
     }
 
