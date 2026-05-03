@@ -12,5 +12,9 @@ public class TotalMemoryDecorator extends ServerDecorator {
         return decoratedServerInfo.getStatusDesc() + ", and there is a total of "
         + facade.getTotalJVMMemory() + "bytes of JVM memory";
     }
+    @Override
+    public Integer getRequestCost() {
+        return 13 + decoratedServerInfo.getRequestCost();
+    }
     
 }

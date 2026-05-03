@@ -14,4 +14,9 @@ public class ProcessorsDecorator extends ServerDecorator {
         + facade.getAvailableProcessors() + " processors available";
     }
     
+    @Override
+    public Integer getRequestCost() {
+        return 3 + decoratedServerInfo.getRequestCost();
+    }
+    
 }

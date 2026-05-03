@@ -1,7 +1,5 @@
 package com.acme.statusmgr.beans;
 
-import org.springframework.cache.annotation.Cacheable;
-
 import com.acme.servermgr.ServerManager;
 
 /**

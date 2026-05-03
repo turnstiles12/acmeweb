@@ -14,5 +14,9 @@ public class JREDecorator extends ServerDecorator {
         return decoratedServerInfo.getStatusDesc() + ", and the JRE version is "
         + facade.getJreVersion();
     }
+    @Override
+    public Integer getRequestCost() {
+        return 19 + decoratedServerInfo.getRequestCost();
+    }
     
 }

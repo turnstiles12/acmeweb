@@ -13,4 +13,9 @@ public class LocationDecorator extends ServerDecorator{
         return decoratedServerInfo.getStatusDesc() + ", and the server's temp file location is "
         + facade.getTempLocation();
     }
+    
+    @Override
+    public Integer getRequestCost() {
+        return 29 + decoratedServerInfo.getRequestCost();
+    }
 }

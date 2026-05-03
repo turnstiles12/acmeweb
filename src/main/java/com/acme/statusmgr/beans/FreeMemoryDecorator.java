@@ -13,4 +13,8 @@ public class FreeMemoryDecorator extends ServerDecorator{
         return decoratedServerInfo.getStatusDesc() + ", and there are " + facade.getFreeJVMMemory() +
         " bytes of free memory";
     }
+    @Override
+    public Integer getRequestCost() {
+        return 7 + decoratedServerInfo.getRequestCost();
+    }
 }
