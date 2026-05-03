@@ -4,6 +4,9 @@ public class FreeMemoryDecorator extends ServerDecorator{
     public FreeMemoryDecorator(ServerInfo info) {
         super(info);
     }
+    public FreeMemoryDecorator(ServerInfo info, ServerFacade fac) {
+        super(info, fac);
+    }
 
     @Override
     public String getStatusDesc() {

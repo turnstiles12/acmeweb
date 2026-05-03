@@ -7,11 +7,15 @@ package com.acme.statusmgr.beans;
  */
 public abstract class ServerDecorator implements ServerInfo {
     protected ServerInfo decoratedServerInfo;
-    protected ServerInfoFacade facade;
+    protected ServerFacade facade;
     
     public ServerDecorator(ServerInfo info) {
         decoratedServerInfo = info;
         facade = ServerInfoFacade.getInstance();
+    }
+    public ServerDecorator(ServerInfo info, ServerFacade facade) {
+        decoratedServerInfo = info;
+        this.facade = facade;
     }
     @Override
     public long getId() {

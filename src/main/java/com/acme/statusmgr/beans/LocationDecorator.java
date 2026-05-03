@@ -4,6 +4,9 @@ public class LocationDecorator extends ServerDecorator{
     public LocationDecorator(ServerInfo info) {
         super(info);
     }
+    public LocationDecorator(ServerInfo info, ServerFacade fac) {
+        super(info, fac);
+    }
 
     @Override
     public String getStatusDesc() {

@@ -1,7 +1,9 @@
 package com.acme.statusmgr;
 
 import com.acme.statusmgr.beans.ServerDecoratorFactory;
+import com.acme.statusmgr.beans.ServerFacade;
 import com.acme.statusmgr.beans.ServerInfo;
+import com.acme.statusmgr.beans.ServerInfoFacade;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +35,17 @@ public class StatusController {
 
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
+    private static ServerFacade facadeType = ServerInfoFacade.getInstance();
 
     /**
      * Process a request for server status information
      *
      * @param name optional param identifying the requester
      * @return a ServerStatus object containing the info to be returned to the requestor
-     * @apiNote TODO since Spring picks apart the object returned with Reflection and doesn't care what the return-object's type is, we can change the type of object we return if necessary, as long as the object returned contained the required fields and getter methods.
+     * @apiNote since Spring picks apart the object returned with 
+     * Reflection and doesn't care what the return-object's type is, 
+     * we can change the type of object we return if necessary, 
+     * as long as the object returned contained the required fields and getter methods.
      */
     @RequestMapping("/status")
     public ServerInfo getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
@@ -54,7 +60,7 @@ public class StatusController {
      * @param name    optional param identifying the requester
      * @param details optional param with a list of server status details being requested
      * @return a ServerStatus object containing the info to be returned to the requestor
-     *      * @apiNote TODO since Spring picks apart the object returned with 
+     *      * @apiNote since Spring picks apart the object returned with 
      *         Reflection and doesn't care what the return-object's type is, 
      *          we can change the type of object we return if necessary
      */
@@ -72,9 +78,12 @@ public class StatusController {
             detailedStatus = new ServerStatus(counter.incrementAndGet(), 
             String.format(template, name));
             for (String detail : details)
-                detailedStatus = ServerDecoratorFactory.decorate(detail, detailedStatus);
+                    detailedStatus = ServerDecoratorFactory.decorate(detail, detailedStatus, facadeType);
             
         }
         return detailedStatus;
+    }
+    public static void setSystemInfoFacade(ServerFacade facade) {
+        facadeType = facade;
     }
 }

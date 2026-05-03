@@ -5,6 +5,9 @@ public class JREDecorator extends ServerDecorator {
     public JREDecorator(ServerInfo info) {
         super(info);
     }
+    public JREDecorator(ServerInfo info, ServerFacade fac) {
+        super(info, fac);
+    }
 
     @Override
     public String getStatusDesc() {

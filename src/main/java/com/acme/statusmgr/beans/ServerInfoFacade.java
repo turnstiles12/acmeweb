@@ -1,6 +1,6 @@
 package com.acme.statusmgr.beans;
 
-public class ServerInfoFacade {
+public class ServerInfoFacade implements ServerFacade {
     private final Runtime runtime = Runtime.getRuntime();
     private static ServerInfoFacade instance = null;
 
