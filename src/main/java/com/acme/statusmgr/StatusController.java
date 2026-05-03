@@ -1,5 +1,7 @@
 package com.acme.statusmgr;
 
+import com.acme.statusmgr.beans.ServerDecoratorFactory;
+import com.acme.statusmgr.beans.ServerInfo;
 import com.acme.statusmgr.beans.ServerStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 /**
  * Controller for all web/REST requests about the status of servers
@@ -41,7 +42,7 @@ public class StatusController {
      * @apiNote TODO since Spring picks apart the object returned with Reflection and doesn't care what the return-object's type is, we can change the type of object we return if necessary, as long as the object returned contained the required fields and getter methods.
      */
     @RequestMapping("/status")
-    public ServerStatus getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
+    public ServerInfo getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
         return new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
     }
@@ -58,18 +59,20 @@ public class StatusController {
      *          we can change the type of object we return if necessary
      */
     @RequestMapping("/status/detailed")
-    public ServerStatus getDetailedStatus(
-            @RequestParam(value = "name", defaultValue = "Anonymous") String name,
+    public ServerInfo getDetailedStatus(
+            @RequestParam(value = "name", defaultValue = "Anonymous") String name, 
             @RequestParam List<String> details) {
 
-        ServerStatus detailedStatus = null;
-
+        ServerInfo detailedStatus = null;
         if (details != null) {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
             
-            String detailStream = details.stream().collect(Collectors.joining(", "));
-            detailedStatus = new ServerStatus(counter.incrementAndGet(), detailStream);
+            
+            detailedStatus = new ServerStatus(counter.incrementAndGet(), 
+            String.format(template, name));
+            for (String detail : details)
+                detailedStatus = ServerDecoratorFactory.decorate(detail, detailedStatus);
             
         }
         return detailedStatus;
