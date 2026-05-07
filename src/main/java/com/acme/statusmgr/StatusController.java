@@ -1,10 +1,11 @@
 package com.acme.statusmgr;
 
-import com.acme.statusmgr.beans.ServerDecoratorFactory;
-import com.acme.statusmgr.beans.ServerFacade;
-import com.acme.statusmgr.beans.ServerInfo;
-import com.acme.statusmgr.beans.ServerInfoFacade;
+import com.acme.statusmgr.beans.decorators.ServerInfo;
 import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.statusmgr.beans.decorators.ServerDecoratorFactory;
+import com.acme.statusmgr.beans.decorators.ServerFacade;
+import com.acme.statusmgr.beans.decorators.ServerInfoFacade;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;

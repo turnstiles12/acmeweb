@@ -1,4 +1,4 @@
-package com.acme.statusmgr.beans;
+package com.acme.statusmgr.beans.decorators;
 
 /**
  * Decorators to ServerInfo interface to add information about

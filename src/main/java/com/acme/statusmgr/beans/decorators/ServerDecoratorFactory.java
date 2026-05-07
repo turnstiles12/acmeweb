@@ -1,4 +1,4 @@
-package com.acme.statusmgr.beans;
+package com.acme.statusmgr.beans.decorators;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.acme.statusmgr.beans;
+package com.acme.statusmgr.beans.decorators;
 
 /**
  * Creates interface of facades that will return

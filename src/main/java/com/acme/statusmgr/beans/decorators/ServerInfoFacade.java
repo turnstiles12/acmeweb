@@ -1,4 +1,4 @@
-package com.acme.statusmgr.beans;
+package com.acme.statusmgr.beans.decorators;
 
 public class ServerInfoFacade implements ServerFacade {
     private final Runtime runtime = Runtime.getRuntime();

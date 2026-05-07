@@ -1,4 +1,4 @@
-package com.acme.statusmgr.beans;
+package com.acme.statusmgr.beans.decorators;
 
 public class FreeMemoryDecorator extends ServerDecorator{
     public FreeMemoryDecorator(ServerInfo info) {

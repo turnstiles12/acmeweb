@@ -1,4 +1,6 @@
-package com.acme.statusmgr.beans;
+package com.acme.statusmgr.beans.decorators;
+
+import com.acme.statusmgr.beans.decorators.ServerInfo;
 
 public class ProcessorsDecorator extends ServerDecorator {
     public ProcessorsDecorator(ServerInfo info) {
