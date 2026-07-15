@@ -13,7 +13,7 @@ public class ServerManager {
      * @return a descriptive string about the servers status
      */
     static public String getCurrentServerStatus() {
-        return "up";  // The server is up
+        return "up";
     }
 
     /**

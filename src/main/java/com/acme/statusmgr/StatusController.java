@@ -1,6 +1,11 @@
 package com.acme.statusmgr;
 
+import com.acme.statusmgr.beans.decorators.ServerInfo;
 import com.acme.statusmgr.beans.ServerStatus;
+import com.acme.statusmgr.beans.decorators.ServerDecoratorFactory;
+import com.acme.statusmgr.beans.decorators.ServerFacade;
+import com.acme.statusmgr.beans.decorators.ServerInfoFacade;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 
 /**
  * Controller for all web/REST requests about the status of servers
@@ -32,16 +36,20 @@ public class StatusController {
 
     protected static final String template = "Server Status requested by %s";
     protected final AtomicLong counter = new AtomicLong();
+    private static ServerFacade facadeType = ServerInfoFacade.getInstance();
 
     /**
      * Process a request for server status information
      *
      * @param name optional param identifying the requester
      * @return a ServerStatus object containing the info to be returned to the requestor
-     * @apiNote TODO since Spring picks apart the object returned with Reflection and doesn't care what the return-object's type is, we can change the type of object we return if necessary, as long as the object returned contained the required fields and getter methods.
+     * @apiNote since Spring picks apart the object returned with 
+     * Reflection and doesn't care what the return-object's type is, 
+     * we can change the type of object we return if necessary, 
+     * as long as the object returned contained the required fields and getter methods.
      */
     @RequestMapping("/status")
-    public ServerStatus getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
+    public ServerInfo getStatus(@RequestParam(value = "name", defaultValue = "Anonymous") String name) {
         return new ServerStatus(counter.incrementAndGet(),
                 String.format(template, name));
     }
@@ -53,25 +61,30 @@ public class StatusController {
      * @param name    optional param identifying the requester
      * @param details optional param with a list of server status details being requested
      * @return a ServerStatus object containing the info to be returned to the requestor
-     *      * @apiNote TODO since Spring picks apart the object returned with 
+     *      * @apiNote since Spring picks apart the object returned with 
      *         Reflection and doesn't care what the return-object's type is, 
      *          we can change the type of object we return if necessary
      */
     @RequestMapping("/status/detailed")
-    public ServerStatus getDetailedStatus(
-            @RequestParam(value = "name", defaultValue = "Anonymous") String name,
+    public ServerInfo getDetailedStatus(
+            @RequestParam(value = "name", defaultValue = "Anonymous") String name, 
             @RequestParam List<String> details) {
 
-        ServerStatus detailedStatus = null;
-
+        ServerInfo detailedStatus = null;
         if (details != null) {
             Logger logger = LoggerFactory.getLogger("StatusController");
             logger.info("Details were provided: " + Arrays.toString(details.toArray()));
-
-            //todo Should do something with all these details that were requested
-
-
+            
+            
+            detailedStatus = new ServerStatus(counter.incrementAndGet(), 
+            String.format(template, name));
+            for (String detail : details)
+                    detailedStatus = ServerDecoratorFactory.decorate(detail, detailedStatus, facadeType);
+            
         }
         return detailedStatus;
+    }
+    public static void setSystemInfoFacade(ServerFacade facade) {
+        facadeType = facade;
     }
 }
